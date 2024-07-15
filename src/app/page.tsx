@@ -24,7 +24,7 @@ const Home: React.FC = () => {
 
   const handleDelete = (id: string) => {
     axios
-      .delete(`http://localhost:3000/api/employees?id=${id}`)
+      .delete(`api/employees?id=${id}`)
       .then((res: { data: any }) => {
         console.log(res.data);
         fetchEmployees();
