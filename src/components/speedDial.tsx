@@ -59,10 +59,16 @@ export default function OpenIconSpeedDial({
   handleOpen,
 }: OpenIconSpeedDialProps) {
   return (
-    <Box sx={{ height: 320, transform: "translateZ(0px)", flexGrow: 1 }}>
+    <Box>
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: "fixed", bottom: 16, left: 16 }}
+        sx={{
+          position: "fixed",
+          bottom: 30,
+          right: 30,
+          zIndex: 1000,
+          minWidth: 48,
+        }}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
       >
         {actions.map((action) => (

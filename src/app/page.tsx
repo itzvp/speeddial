@@ -212,6 +212,7 @@
 // export default Home;
 "use client";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Button,
   Card,
@@ -233,6 +234,30 @@ const Home: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [open, setOpen] = useState(false);
 
+  // const handleDelete = (id: string) => {
+  //   axios
+  //     .delete(`http://localhost:3000/api/employees/${id}`)
+  //     .then((res: { data: any }) => {
+  //       console.log(res.data);
+  //       fetchEmployees();
+  //     })
+  //     .catch((error: any) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  const handleDelete = (id: string) => {
+    axios
+      .delete(`http://localhost:3000/api/employees?id=${id}`)
+      .then((res: { data: any }) => {
+        console.log(res.data);
+        fetchEmployees();
+      })
+      .catch((error: any) => {
+        console.error("Failed to delete employee:", error);
+      });
+  };
+
   const fetchEmployees = async () => {
     const res = await fetch("/api/employees");
     if (res.ok) {
@@ -242,6 +267,16 @@ const Home: React.FC = () => {
       console.error("Failed to fetch employees");
     }
   };
+  // const handleRemoveEmployee = async (employeeId: string) => {
+  //   const res = await fetch(`/api/employees/${employeeId}`, {
+  //     method: "DELETE",
+  //   });
+  //   if (res.ok) {
+  //     fetchEmployees(); // Refresh the employee list after deletion
+  //   } else {
+  //     console.error("Failed to delete employee");
+  //   }
+  // };
 
   useEffect(() => {
     fetchEmployees();
@@ -252,7 +287,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center">
-      <h1 className="text-4xl my-8">Zapillo Demo</h1>
+      {/* <h1 className="text-4xl my-8">Zapillo Demo</h1> */}
       <EmployeeForm
         open={open}
         handleClose={handleClose}
@@ -276,7 +311,7 @@ const Home: React.FC = () => {
                 <Typography variant="h5" component="div" gutterBottom>
                   {employee.name}
                 </Typography>
-                <Typography color="textSecondary">Zapillo</Typography>
+                {/* <Typography color="textSecondary">Zapillo</Typography> */}
                 <Typography variant="body2" component="p" sx={{ marginTop: 1 }}>
                   Email: {employee.email}
                 </Typography>
@@ -285,7 +320,15 @@ const Home: React.FC = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center" }}>
-                <Button size="small" variant="contained" color="secondary">
+                {/* <Button size="small" variant="contained" color="secondary">
+                  Remove
+                </Button> */}
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDelete(employee._id)}
+                >
                   Remove
                 </Button>
               </CardActions>
