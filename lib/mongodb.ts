@@ -12,7 +12,6 @@ interface MongooseCache {
 }
 
 declare global {
-  // This should exist somewhere in your global namespace
   var mongoose: MongooseCache;
 }
 
@@ -35,10 +34,12 @@ async function connectToDatabase() {
     };
 
     console.log("Creating new database connection");
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      console.log("Database connected");
-      return mongoose;
-    });
+    cached.promise = mongoose
+      .connect(MONGODB_URI as string, opts)
+      .then((mongoose) => {
+        console.log("Database connected");
+        return mongoose;
+      });
   }
   cached.conn = await cached.promise;
   return cached.conn;
