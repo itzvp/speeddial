@@ -248,7 +248,7 @@ const Home: React.FC = () => {
 
   const handleDelete = (id: string) => {
     axios
-      .delete(`http://localhost:3000/api/employees?id=${id}`)
+      .delete(`https://speeddial-jjf5.vercel.app/api/employees?id=${id}`)
       .then((res: { data: any }) => {
         console.log(res.data);
         fetchEmployees();
@@ -259,7 +259,7 @@ const Home: React.FC = () => {
   };
 
   const fetchEmployees = async () => {
-    const res = await fetch("/api/employees");
+    const res = await fetch("https://speeddial-jjf5.vercel.app/api/employees");
     if (res.ok) {
       const data = await res.json();
       setEmployees(data.data);
